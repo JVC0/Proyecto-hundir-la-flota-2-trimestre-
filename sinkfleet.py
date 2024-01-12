@@ -55,3 +55,12 @@ def show_board(board: list[list[str]]) -> None:
 # ↓↓↓↓↓↓↓↓↓
 
 board = generate_board()
+
+show_board(board)
+
+visible_board = '⬛ ' * len(board)
+
+print('   A  B  C  D  E  F  G  H  I  J ')
+
+for row in range(len(board)):
+    print(row, visible_board)
