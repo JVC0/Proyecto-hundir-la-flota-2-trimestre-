@@ -64,3 +64,5 @@ print('   A  B  C  D  E  F  G  H  I  J ')
 
 for row in range(len(board)):
     print(row, visible_board)
+
+location = input .
