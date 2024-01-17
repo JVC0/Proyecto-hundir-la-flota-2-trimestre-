@@ -62,7 +62,10 @@ visible_board = '⬛ ' * len(board)
 
 print('   A  B  C  D  E  F  G  H  I  J ')
 
+position = "ABCDEFGIJ"
+
 for row in range(len(board)):
     print(row, visible_board)
 
-location = input ('Ataque una casilla: ')
+for _ in 
+    location = input('Ataque una casilla <letra><número>: ').split()
