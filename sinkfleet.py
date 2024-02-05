@@ -58,13 +58,19 @@ board = generate_board()
 
 show_board(board)
 
-visible_board = '⬛ ' * len(board)
+position = " ABCDEFGHIJ"
 
-print('   A  B  C  D  E  F  G  H  I  J ')
-
-position = "ABCDEFGIJ"
-
-for row in range(1, 11):
-    print(f'{row: <2} {visible_board}')
-
-location = input('Ataque una casilla <letra><número>: ').lower
+visible_board = ""
+# while Estaria aqui
+location = input('Ataque una casilla <letra><número>: ').upper()
+column_location = int(position.find(location[0]))
+row_location = int(location[1:])
+print('A B C D E F G H I J')
+for column in range(1, 11):
+    visible_board = ""
+    for row in range(1, 11):
+        if row == row_location and column_location == column:
+            visible_board += '🟦'
+        else:
+            visible_board += '⬛'
+    print(visible_board)
