@@ -64,8 +64,7 @@ print('   A  B  C  D  E  F  G  H  I  J ')
 
 position = "ABCDEFGIJ"
 
-for row in range(len(board)):
-    print(row, visible_board)
+for row in range(1, 11):
+    print(f'{row: <2} {visible_board}')
 
-for _ in 
-    location = input('Ataque una casilla <letra><número>: ').split()
+location = input('Ataque una casilla <letra><número>: ').lower
