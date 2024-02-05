@@ -56,21 +56,23 @@ def show_board(board: list[list[str]]) -> None:
 
 board = generate_board()
 
-show_board(board)
 
-position = " ABCDEFGHIJ"
+POSITION = " ABCDEFGHIJ"
+num_ships = 5
 
 visible_board = ""
 # while Estaria aqui
-location = input('Ataque una casilla <letra><número>: ').upper()
-column_location = int(position.find(location[0]))
-row_location = int(location[1:])
-print('A B C D E F G H I J')
-for column in range(1, 11):
-    visible_board = ""
+
+while num_ships > 0:
+    location = input('Ataque una casilla <letra><número>: ').upper()
+    column_location = int(POSITION.find(location[0]))
+    row_location = int(location[1:])
+    print('     A B C D E F G H I J')
     for row in range(1, 11):
-        if row == row_location and column_location == column:
-            visible_board += '🟦'
-        else:
-            visible_board += '⬛'
-    print(visible_board)
+        visible_board = ""
+        for column in range(1, 11):
+            if row == row_location and column_location == column:
+                visible_board += '🟦'
+            else:
+                visible_board += '⬛'
+        print(f'{row: ^3} {visible_board}')
