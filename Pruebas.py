@@ -69,12 +69,13 @@ while num_ships > 0:
     column_and_row.append(int(POSITION.find(location[0])))
     column_and_row.append(int(location[1:]))
     print('     A B C D E F G H I J')
-    for pos in column_and_row
+    
     for row in range(1, 11):
         visible_board = ""
         for column in range(1, 11):
-            if row == row_location and column_location == column:
-                visible_board += '🟦' 
-            else:
-                visible_board += '⬛'
+            for row_location,column_location in column_and_row:
+                if row == row_location and column_location == column:
+                    visible_board += '🟦' 
+                else:
+                    visible_board += '⬛'
         print(f'{row: ^3} {visible_board}')
