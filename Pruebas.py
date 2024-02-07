@@ -66,14 +66,14 @@ column_and_row = [[0,0]]
 
 while num_ships > 0:
     location = input('Ataque una casilla <letra><número>: ').upper()
-    column_and_row.append([int(POSITION.find(location[0])),int(location[1:]) ])
+    column_and_row.append([POSITION.find(location[0]),int(location[1:]) ])
     
     print('     A B C D E F G H I J')
     
     for row in range(1, 11):
         visible_board = ""
-        for pos in column_and_row[1:]:
-            for column in range(1, 11):
+        for column in range(1, 11):
+            for pos in column_and_row[1:]:
                 if row == pos[1] and pos[0] == column:
                     visible_board += '🟦' 
                 else:
