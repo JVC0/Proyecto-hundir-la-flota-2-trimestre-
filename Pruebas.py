@@ -67,11 +67,15 @@ column_and_row = {}
 
 while num_ships > 0:
     location = input('Ataque una casilla <letra><número>: ').upper()
-    if POSITION.find(location[0]) in column_and_row:
-        column_and_row[POSITION.find(location[0])].append(int(location[1:]))
+    if location[0] in POSITION: 
+        row = int(location[1:])
+        if row in column_and_row:
+            column_and_row[row].append(POSITION.find(location[0]))
+        else:
+            column_and_row[row] = [POSITION.find(location[0])]
     else:
-        column_and_row[POSITION.find(location[0])] = [int(location[1:])]
-
+        print("Letra inválida. Por favor, introduzca una letra válida de A a J.")
+    
     print('     A B C D E F G H I J')
     for row in range(1, 11):
         visible_board = ""
