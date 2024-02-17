@@ -54,10 +54,9 @@ def show_board(board: list[list[str]]) -> None:
 # TU CÓDIGO DESDE AQUÍ HACIA ABAJO
 # ↓↓↓↓↓↓↓↓↓
 
+
 board = generate_board()
-
 show_board(board)
-
 POSITION = " ABCDEFGHIJ"
 num_ships = 5
 
@@ -83,7 +82,10 @@ while num_ships > 0:
         visible_board = ""
         for column in range(1, 11):
             if row in column_and_row.keys() and column in column_and_row.get(row):
-                visible_board += '🟦'
+                if board[row-1][column-1] != "": 
+                    visible_board += '🟧'
+                else:
+                    visible_board += '🟦'
             else:
                 visible_board += '⬛'
         print(f'{row: ^3} {visible_board}')
