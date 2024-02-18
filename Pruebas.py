@@ -56,32 +56,42 @@ def show_board(board: list[list[str]]) -> None:
 
 
 board = generate_board()
-
+show_board(board)
 POSITION = " ABCDEFGHIJ"
 num_ships = 5
 
 visible_board = ""
 column_and_row = {}
-
+ship_position={}
 # while Estaria aqui
 
 while num_ships > 0:
     location = input('Ataque una casilla <letra><número>: ').upper()
-    if location[0] in POSITION: 
+    if location[0] in POSITION:
         row = int(location[1:])
         if row in column_and_row:
             column_and_row[row].append(POSITION.find(location[0]))
         else:
             column_and_row[row] = [POSITION.find(location[0])]
-    else:
-        print("Letra inválida. Por favor, introduzca una letra válida de A a J.")
-    
+    else: 
+        print("Letra inválida. Por favor, introduzca una letra válida (de la A a la J).")
+        continue
     print('     A B C D E F G H I J')
     for row in range(1, 11):
         visible_board = ""
         for column in range(1, 11):
-            if row in column_and_row.keys() and column in column_and_row.get(row):
-                visible_board += '🟦'
+            if row in column_and_row.keys() and column in column_and_row.get(row): 
+                if board[row-1][column-1] != "":
+                    if ship_position == {} and board[row-1][column-1] not in ship_position:
+                        ship_position[board[row-1][column-1]]=[[row, column]]
+                    else:
+                        ship_position[board[row-1][column-1]].append([row, column])
+                    if row in ship_position[board[row-1][column-1]]:
+                        visible_board += '🟥'
+                    else: 
+                        visible_board += '🟧'
+                else:
+                    visible_board += '🟦'
             else:
                 visible_board += '⬛'
         print(f'{row: ^3} {visible_board}')
