@@ -62,7 +62,8 @@ num_ships = 5
 
 visible_board = ""
 column_and_row = {}
-ship_position={}
+ship_position = {}
+
 # while Estaria aqui
 
 while num_ships > 0:
@@ -73,22 +74,25 @@ while num_ships > 0:
             column_and_row[row].append(POSITION.find(location[0]))
         else:
             column_and_row[row] = [POSITION.find(location[0])]
-    else: 
+    else:
         print("Letra inválida. Por favor, introduzca una letra válida (de la A a la J).")
         continue
     print('     A B C D E F G H I J')
     for row in range(1, 11):
         visible_board = ""
         for column in range(1, 11):
-            if row in column_and_row.keys() and column in column_and_row.get(row): 
-                if board[row-1][column-1] != "":
-                    if ship_position == {} and board[row-1][column-1] not in ship_position:
-                        ship_position[board[row-1][column-1]]=[[row, column]]
-                    else:
-                        ship_position[board[row-1][column-1]].append([row, column])
-                    if row in ship_position[board[row-1][column-1]]:
+            if row in column_and_row.keys() and column in column_and_row.get(row):
+                if board[row - 1][column - 1] != "":
+                    if board[row - 1][column - 1] not in ship_position:
+                        ship_position[board[row - 1][column - 1]] = 0
+                    ship_position[board[row - 1][column - 1]] = (
+                        ship_position.get(board[row - 1][column - 1]) + 1
+                    )
+                    if ship_position.get(board[row - 1][column - 1]) == board[row - 1][
+                        column - 1
+                    ][0]:
                         visible_board += '🟥'
-                    else: 
+                    else:
                         visible_board += '🟧'
                 else:
                     visible_board += '🟦'
