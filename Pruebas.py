@@ -62,10 +62,16 @@ num_ships = 5
 
 visible_board = ""
 column_and_row = {}
-ship_position = {}
-
+Ship_health = {}
+ship_pos={}
 # while Estaria aqui
-
+for row in range(1, 11):
+    for column in range(1, 11):
+        if board[row - 1][column - 1] != EMPTY:
+            ship_id = board[row - 1][column - 1]
+            if ship_id not in ship_pos:
+                ship_pos[row] = set()
+            ship_pos[row].add(column)
 while num_ships > 0:
     location = input('Ataque una casilla <letra><número>: ').upper()
     if location[0] in POSITION:
@@ -82,20 +88,15 @@ while num_ships > 0:
         visible_board = ""
         for column in range(1, 11):
             if row in column_and_row.keys() and column in column_and_row.get(row):
-                if board[row - 1][column - 1] != "":
-                    if board[row - 1][column - 1] not in ship_position:
-                        ship_position[board[row - 1][column - 1]] = 0
-                    ship_position[board[row - 1][column - 1]] = (
-                        ship_position.get(board[row - 1][column - 1]) + 1
-                    )
-                    if ship_position.get(board[row - 1][column - 1]) == board[row - 1][
-                        column - 1
-                    ][0]:
-                        visible_board += '🟥'
+                if board[row - 1][column - 1] != EMPTY:
+                    if column not in ship_pos[row]:
+                        visible_board += SUNKEN
                     else:
-                        visible_board += '🟧'
+                        visible_board += TOUCHED
+                        print(ship_pos[row] , )
                 else:
-                    visible_board += '🟦'
+                    visible_board += WATER
             else:
-                visible_board += '⬛'
+                visible_board += UNEXPLORED
         print(f'{row: ^3} {visible_board}')
+    
