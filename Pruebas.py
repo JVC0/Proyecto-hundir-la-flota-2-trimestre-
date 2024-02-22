@@ -92,7 +92,7 @@ while num_ships > 0:
         for column in range(1, 11):
             if row in column_and_row.keys() and column in column_and_row.get(row):
                 if board[row - 1][column - 1] != EMPTY:
-                    if column in ship_pos[row]:
+                    if column in ship_pos:
                         visible_board += SUNKEN
                     else:
                         visible_board += TOUCHED
