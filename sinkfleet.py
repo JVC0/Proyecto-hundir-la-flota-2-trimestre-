@@ -85,7 +85,7 @@ while num_ships > 0:
         for column in range(1, 11):
             if row in column_and_row.keys() and column in column_and_row.get(row):
                 ship_id = board[row - 1][column - 1]
-                if board[row - 1][column - 1] != EMPTY:
+                if ship_id != EMPTY:
                     if ship_id not in ship_health:
                         ship_health[ship_id] = set() 
                     ship_health[ship_id].add((column,row))
