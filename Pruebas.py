@@ -76,23 +76,23 @@ for row in range(1, 11):
 while num_ships > 0:
     location = input(f'Turno {Turnos}: Ataque una casilla <letra><número>: ').upper()
     Turnos+=1
-    
+    if location[0] not in POSITION.strip() and int(location[1:]) not in range(1, 11):
+        print('ERROR:La casilla que has seleccionado no se encuentra en el tablero')
+        Turnos-=1
+        continue
     if location[0] in POSITION:
         row = int(location[1:])
         if row in column_and_row:
             column_and_row[row].append(POSITION.find(location[0]))
         else:
             column_and_row[row] = [POSITION.find(location[0])]
-    else:
-        print("Letra inválida. Por favor, introduzca una letra válida (de la A a la J).")
-        continue
     print('     A B C D E F G H I J')
     for row in range(1, 11):
         visible_board = ""
         for column in range(1, 11):
             if row in column_and_row.keys() and column in column_and_row.get(row):
                 if board[row - 1][column - 1] != EMPTY:
-                    if column  in ship_pos[row]:
+                    if column in ship_pos[row]:
                         visible_board += SUNKEN
                     else:
                         visible_board += TOUCHED
