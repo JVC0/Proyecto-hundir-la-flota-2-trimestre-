@@ -63,23 +63,16 @@ num_ships = 5
 visible_board = ""
 column_and_row = {}
 Ship_health = {}
-ship_pos={}
-Ship_health={}
+ship_health={}
+ship_sunked=0
 Turnos=1
-for row in range(1, 11):
-    for column in range(1, 11):
-        if board[row - 1][column - 1] != EMPTY:
-            ship_id = board[row - 1][column - 1]
-            if ship_id not in ship_pos:
-                ship_pos[ship_id] = set()
-            ship_pos[ship_id].add((column,row))
 while num_ships > 0:
     location = input(f'Turno {Turnos}: Ataque una casilla <letra><número>: ').upper()
-    Turnos+=1
-    if len(location) == 0 or len(location) > 3 or location[0] not in POSITION[1:] or not location[1:].isdigit() or int(location[1:]) not in range(1, 11):
+    
+    if len(location) == 0 or len(location) > 3 or location[0] not in POSITION[1:] or not location[1:].isnumeric() or int(location[1:]) not in range(1, 11):
         print('ERROR:La casilla que has seleccionado no se encuentra en el tablero')
-        Turnos-=1
         continue
+    Turnos+=1
     if location[0] in POSITION:
         row = int(location[1:])
         if row in column_and_row:
@@ -91,8 +84,12 @@ while num_ships > 0:
         visible_board = ""
         for column in range(1, 11):
             if row in column_and_row.keys() and column in column_and_row.get(row):
+                ship_id = board[row - 1][column - 1]
                 if board[row - 1][column - 1] != EMPTY:
-                    if column in ship_pos:
+                    if ship_id not in ship_health:
+                        ship_health[ship_id] = set() 
+                    ship_health[ship_id].add((column,row))
+                    if len(ship_health[ship_id]) == int(ship_id[0]):
                         visible_board += SUNKEN
                     else:
                         visible_board += TOUCHED
