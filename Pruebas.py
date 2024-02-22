@@ -76,7 +76,7 @@ for row in range(1, 11):
 while num_ships > 0:
     location = input(f'Turno {Turnos}: Ataque una casilla <letra><número>: ').upper()
     Turnos+=1
-    if location[0] not in POSITION.strip() and int(location[1:]) not in range(1, 11):
+    if len(location) == 0 or len(location) > 3 or location[0] not in POSITION[1:] or not location[1:].isdigit() or int(location[1:]) not in range(1, 11):
         print('ERROR:La casilla que has seleccionado no se encuentra en el tablero')
         Turnos-=1
         continue
