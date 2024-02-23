@@ -106,7 +106,7 @@ while num_ships > 0:
                         if len(ship_health[ship_id]) == int(ship_id[0]) and ship_id not in num_ships_count :
                             num_ships_count.append(ship_id)
                             num_ships -= 1
-                            player_points += 4*int(ship_id[0])
+                            player_points += 4*int(ship_id[0])- 2*int(ship_id[0])
                             
                     if len(ship_health[ship_id]) == int(ship_id[0]):
                         visible_board += SUNKEN
