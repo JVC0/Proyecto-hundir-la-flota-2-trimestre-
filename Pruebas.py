@@ -66,6 +66,7 @@ Ship_health = {}
 ship_health = {}
 ship_sunked = 0
 Turnos = 1
+num_ships_count = []
 while num_ships > 0:
     location = input(
         f'Turno {Turnos}, {num_ships} barcos restantes: Ataque una casilla <letra><número>: '
@@ -90,7 +91,6 @@ while num_ships > 0:
     print('     A B C D E F G H I J')
     for row in range(1, 11):
         visible_board = ""
-        num_ships_count = 0
         for column in range(1, 11):
             if row in column_and_row.keys() and column in column_and_row.get(row):
                 ship_id = board[row - 1][column - 1]
@@ -100,16 +100,17 @@ while num_ships > 0:
                     ship_health[ship_id].add((column, row))
                     if len(ship_health[ship_id]) == int(ship_id[0]):
                         visible_board += SUNKEN
-                        num_ships_count = 1
                     else:
                         visible_board += TOUCHED
-
                 else:
                     visible_board += WATER
 
             else:
                 visible_board += UNEXPLORED
 
-        num_ships -= num_ships_count
-
         print(f'{row: ^3} {visible_board}')
+    if len(ship_health) != 0:
+        for names in ship_health.keys():
+            if len(ship_health[names]) == int(names[0]) and names not in num_ships_count :
+                num_ships_count.append(names)
+                num_ships -= 1
