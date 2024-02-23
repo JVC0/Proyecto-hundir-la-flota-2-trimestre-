@@ -66,6 +66,7 @@ ship_health = {}
 ship_sunked = 0
 Turnos = 1
 num_ships_count = []
+player_points = 0  
 while num_ships > 0:
     location = input(
         f'Turno {Turnos}, {num_ships} barcos restantes: Ataque una casilla <letra><número>: '
@@ -105,15 +106,27 @@ while num_ships > 0:
                         if len(ship_health[ship_id]) == int(ship_id[0]) and ship_id not in num_ships_count :
                             num_ships_count.append(ship_id)
                             num_ships -= 1
-
+                            player_points += 4*int(ship_id[0])
+                            
                     if len(ship_health[ship_id]) == int(ship_id[0]):
                         visible_board += SUNKEN
                     else:
                         visible_board += TOUCHED
+                    
                 else:
                     visible_board += WATER
             else:
                 visible_board += UNEXPLORED
 
         print(f'{row: ^3} {visible_board}')
-print('Has hundido todos los barcos, has ganado 🎉')
+    row = int(location[1:])
+    column = POSITION.find(location[0])
+    if board[row - 1][column - 1] == EMPTY:
+        if player_points == 0:  
+            layer_points = 0
+        else:
+            player_points -= 1  
+    else:
+        player_points += 2*int(ship_id[0])
+    print(f"Puntuación actual: {player_points}")
+print("Se as ganado")
