@@ -82,6 +82,8 @@ while num_ships > 0:
         print('ERROR:La casilla que has seleccionado no se encuentra en el tablero')
         continue
     Turnos += 1
+    if Ship_health is SUNKEN or TOUCHED or WATER:
+        print('No puedes')
     if location[0] in POSITION:
         row = int(location[1:])
         if row in column_and_row:
@@ -102,14 +104,15 @@ while num_ships > 0:
                         if len(ship_health[ship_id]) == int(ship_id[0]) and ship_id not in num_ships_count :
                             num_ships_count.append(ship_id)
                             num_ships -= 1
+
                     if len(ship_health[ship_id]) == int(ship_id[0]):
                         visible_board += SUNKEN
                     else:
                         visible_board += TOUCHED
                 else:
                     visible_board += WATER
-
             else:
                 visible_board += UNEXPLORED
 
         print(f'{row: ^3} {visible_board}')
+print('Has hundido todos los barcos, has ganado 🎉')
