@@ -59,10 +59,9 @@ board = generate_board()
 show_board(board)
 POSITION = " ABCDEFGHIJ"
 num_ships = 5
-
+shot_positions = set()
 visible_board = ""
 column_and_row = {}
-Ship_health = {}
 ship_health = {}
 ship_sunked = 0
 Turnos = 1
@@ -81,6 +80,10 @@ while num_ships > 0:
     ):
         print('ERROR:La casilla que has seleccionado no se encuentra en el tablero')
         continue
+    if location in  shot_positions:
+        print("Ya has disparado en esta casilla anteriormente")
+        continue
+    shot_positions.add(location)
     Turnos += 1
     if Ship_health is SUNKEN or TOUCHED or WATER:
         print('No puedes')
@@ -92,7 +95,7 @@ while num_ships > 0:
             column_and_row[row] = [POSITION.find(location[0])]
     print('     A B C D E F G H I J')
     for row in range(1, 11):
-        visible_board = ""
+        visible_board = EMPTY
         for column in range(1, 11):
             if row in column_and_row.keys() and column in column_and_row.get(row):
                 ship_id = board[row - 1][column - 1]
