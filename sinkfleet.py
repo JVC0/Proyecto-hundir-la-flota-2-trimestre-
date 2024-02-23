@@ -115,4 +115,4 @@ while num_ships > 0:
                 visible_board += UNEXPLORED
 
         print(f'{row: ^3} {visible_board}')
-print("Se as ganado")
+print('Has hundido todos los barcos, has ganado ')
