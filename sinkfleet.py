@@ -63,16 +63,25 @@ num_ships = 5
 visible_board = ""
 column_and_row = {}
 Ship_health = {}
-ship_health={}
-ship_sunked=0
-Turnos=1
+ship_health = {}
+ship_sunked = 0
+Turnos = 1
+num_ships_count = []
 while num_ships > 0:
-    location = input(f'Turno {Turnos}: Ataque una casilla <letra><número>: ').upper()
-    
-    if len(location) == 0 or len(location) > 3 or location[0] not in POSITION[1:] or not location[1:].isnumeric() or int(location[1:]) not in range(1, 11):
+    location = input(
+        f'Turno {Turnos}, {num_ships} barcos restantes: Ataque una casilla <letra><número>: '
+    ).upper()
+
+    if (
+        len(location) == 0
+        or len(location) > 3
+        or location[0] not in POSITION[1:]
+        or not location[1:].isnumeric()
+        or int(location[1:]) not in range(1, 11)
+    ):
         print('ERROR:La casilla que has seleccionado no se encuentra en el tablero')
         continue
-    Turnos+=1
+    Turnos += 1
     if location[0] in POSITION:
         row = int(location[1:])
         if row in column_and_row:
@@ -87,14 +96,21 @@ while num_ships > 0:
                 ship_id = board[row - 1][column - 1]
                 if ship_id != EMPTY:
                     if ship_id not in ship_health:
-                        ship_health[ship_id] = set() 
-                    ship_health[ship_id].add((column,row))
+                        ship_health[ship_id] = set()
+                    ship_health[ship_id].add((column, row))
                     if len(ship_health[ship_id]) == int(ship_id[0]):
                         visible_board += SUNKEN
                     else:
                         visible_board += TOUCHED
                 else:
                     visible_board += WATER
+
             else:
                 visible_board += UNEXPLORED
+
         print(f'{row: ^3} {visible_board}')
+    if len(ship_health) != 0:
+        for names in ship_health.keys():
+            if len(ship_health[names]) == int(names[0]) and names not in num_ships_count :
+                num_ships_count.append(names)
+                num_ships -= 1

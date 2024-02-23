@@ -98,6 +98,10 @@ while num_ships > 0:
                     if ship_id not in ship_health:
                         ship_health[ship_id] = set()
                     ship_health[ship_id].add((column, row))
+                    if len(ship_health) != 0:
+                        if len(ship_health[ship_id]) == int(ship_id[0]) and ship_id not in num_ships_count :
+                            num_ships_count.append(ship_id)
+                            num_ships -= 1
                     if len(ship_health[ship_id]) == int(ship_id[0]):
                         visible_board += SUNKEN
                     else:
@@ -109,8 +113,3 @@ while num_ships > 0:
                 visible_board += UNEXPLORED
 
         print(f'{row: ^3} {visible_board}')
-    if len(ship_health) != 0:
-        for names in ship_health.keys():
-            if len(ship_health[names]) == int(names[0]) and names not in num_ships_count :
-                num_ships_count.append(names)
-                num_ships -= 1
