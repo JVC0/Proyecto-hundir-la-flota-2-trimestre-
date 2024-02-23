@@ -85,8 +85,6 @@ while num_ships > 0:
         continue
     shot_positions.add(location)
     Turnos += 1
-    if Ship_health is SUNKEN or TOUCHED or WATER:
-        print('No puedes')
     if location[0] in POSITION:
         row = int(location[1:])
         if row in column_and_row:
