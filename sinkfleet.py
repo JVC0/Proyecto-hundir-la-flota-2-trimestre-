@@ -53,10 +53,7 @@ def show_board(board: list[list[str]]) -> None:
 
 # TU CÓDIGO DESDE AQUÍ HACIA ABAJO
 # ↓↓↓↓↓↓↓↓↓
-
-
 board = generate_board()
-show_board(board)
 POSITION = " ABCDEFGHIJ"
 num_ships = 5
 shot_positions = set()
@@ -66,6 +63,7 @@ ship_health = {}
 ship_sunked = 0
 Turnos = 1
 num_ships_count = []
+player_points = 0  
 while num_ships > 0:
     location = input(
         f'Turno {Turnos}, {num_ships} barcos restantes: Ataque una casilla <letra><número>: '
@@ -85,12 +83,12 @@ while num_ships > 0:
         continue
     shot_positions.add(location)
     Turnos += 1
-    if location[0] in POSITION:
-        row = int(location[1:])
-        if row in column_and_row:
-            column_and_row[row].append(POSITION.find(location[0]))
-        else:
-            column_and_row[row] = [POSITION.find(location[0])]
+    
+    row = int(location[1:])
+    if row in column_and_row:
+        column_and_row[row].append(POSITION.find(location[0]))
+    else:
+        column_and_row[row] = [POSITION.find(location[0])]
     print('     A B C D E F G H I J')
     for row in range(1, 11):
         visible_board = EMPTY
@@ -105,14 +103,28 @@ while num_ships > 0:
                         if len(ship_health[ship_id]) == int(ship_id[0]) and ship_id not in num_ships_count :
                             num_ships_count.append(ship_id)
                             num_ships -= 1
+                            player_points += 4*int(ship_id[0])- 2*int(ship_id[0])
+                            
                     if len(ship_health[ship_id]) == int(ship_id[0]):
                         visible_board += SUNKEN
                     else:
                         visible_board += TOUCHED
+                    
                 else:
                     visible_board += WATER
             else:
                 visible_board += UNEXPLORED
 
         print(f'{row: ^3} {visible_board}')
+    row = int(location[1:])
+    column = POSITION.find(location[0])
+    ship_id=board[row - 1][column - 1]
+    if ship_id == EMPTY:
+        if player_points == 0:  
+            layer_points = 0
+        else:
+            player_points -= 1  
+    else:
+        player_points += 2*int(ship_id[0])
+    print(f"Puntuación actual: {player_points}")
 print('Has hundido todos los barcos, has ganado ')
