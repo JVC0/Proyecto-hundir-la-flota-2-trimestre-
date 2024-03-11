@@ -121,7 +121,7 @@ while num_ships > 0:
     ship_id=board[row - 1][column - 1]
     if ship_id == EMPTY:
         if player_points == 0:  
-            layer_points = 0
+            player_points = 0
         else:
             player_points -= 1  
     else:
